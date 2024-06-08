@@ -1,0 +1,19 @@
+MIS_DONE_BEHAVE=1    # loiter
+
+FS_TIMEOUT=1.5       # Seconds
+FS_ACTION=2          # Hold
+FS_GCS_ENABLE=1      # GCS Failsafe
+
+BATT_MONITOR=4       # Analog Voltage and Current
+BATT_VOLT_PIN=2      # Pixhawk/Pixracer/Navio2/Pixhawk2_PM1
+BATT_CURR_PIN=3      # Pixhawk/Pixracer/Navio2/Pixhawk2_PM1
+
+SERIAL1_PROTOCOL=2   # MAVLink2
+SERIAL1_BAUD=38      # 38400 Baud
+
+WP_RADIUS               2       1       only seems to affect AUTO mode
+LOIT_RADIUS             2       1       target radius to defend in loiter mode
+LOIT_SPEED_GAIN         0.5     0.2     speed input gain in LOITER mode
+ATC_STR_ANG_P           2.5     1.5     PID P-Value of Steering angle input
+ATC_ACCEL_MAX           2.0     1.0     Max Acceleration (global)
+BRD_SAFETYENABLE        1       0       Changes default state of arm safety switch (red blinking button)

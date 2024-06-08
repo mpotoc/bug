@@ -1,0 +1,3 @@
+#!/bin/bash
+
+(echo -ne "AT+CGDCONT=1,\"IP\",\"wm\"\r"; sleep 5; echo -ne "AT^NDISDUP=1,1,\"wm\"\r"; sleep 5; echo -ne "\x01x\r") | minicom -D /dev/ttyUSB2
