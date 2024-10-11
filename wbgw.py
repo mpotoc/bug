@@ -22,6 +22,7 @@ fileVersion = "1.0.2"
 i2c_address = 0x04
 i2c_data_count = 7
 i2c_payload_length = i2c_data_count * 4
+i2c_wind_sensor_address = 0x15
 
 logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.DEBUG)
@@ -366,9 +367,9 @@ def mqtt_init():
 # I2C communication
 def get_data():
     if not sitl:
-        return bus.read_i2c_block_data(i2c_address, 0x00, i2c_payload_length)
+        return bus.read_i2c_block_data(i2c_wind_sensor_address, 0x00, i2c_data_count)
     else:
-        return [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]
+        return [0,0,0,0,0,0,0]
 
 def send_data(i2cData, aResponseLength = 0):
     if not sitl:
@@ -446,6 +447,10 @@ def main():
                 dataTemperature = get_float(data, 3)
                 dataStatus = get_float(data, 4)
                 isFuseShutdown = get_float(data, 6)
+
+                wind_data = get_data()
+                wind_speed = get_float(wind_data, 2) * 100
+                wind_direction = get_float(wind_data, 4) * 100
             except:
                 print('I2C data read exception')
                 # dataVoltage = 0.0
@@ -462,7 +467,7 @@ def main():
             updateArm()
 
         if counter % (3 * intervalDivider) == 0: # report telemetry every 3s
-            telem = "{},{},{},{},{},{},{:.3f},{},{:.1f},{:.1f},{:.1f},{:.1f},{},{},{},{},{}".format( # missing {} for fuse
+            telem = "{},{},{},{},{},{},{:.3f},{},{:.1f},{:.1f},{:.1f},{:.1f},{},{},{},{},{},{},{}".format( # missing {} for fuse
                 vehicle.armed,
                 vehicle.mode.name,
                 vehicle.location.global_frame.lat,
@@ -481,7 +486,9 @@ def main():
                 vehicle.parameters['LOIT_TYPE'],
                 light_command,
                 horn_command,
-                isFuseShutdown
+                isFuseShutdown,
+                wind_speed,
+                wind_direction
                 )
             mc.publish(mqtt_topic_root + 'apm/telem', payload=telem, qos=0, retain=False)
 
