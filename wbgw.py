@@ -448,9 +448,9 @@ def main():
                 dataStatus = get_float(data, 4)
                 isFuseShutdown = get_float(data, 6)
 
-                wind_data = get_data()
-                wind_speed = get_float(wind_data, 2) * 100
-                wind_direction = get_float(wind_data, 4) * 100
+                #wind_data = get_data()
+                #wind_speed = get_float(wind_data, 2) * 100
+                #wind_direction = get_float(wind_data, 4) * 100
             except:
                 print('I2C data read exception')
                 # dataVoltage = 0.0
@@ -467,7 +467,7 @@ def main():
             updateArm()
 
         if counter % (3 * intervalDivider) == 0: # report telemetry every 3s
-            telem = "{},{},{},{},{},{},{:.3f},{},{:.1f},{:.1f},{:.1f},{:.1f},{},{},{},{},{},{},{}".format( # missing {} for fuse
+            telem = "{},{},{},{},{},{},{:.3f},{},{:.1f},{:.1f},{:.1f},{:.1f},{},{},{},{},{}".format(
                 vehicle.armed,
                 vehicle.mode.name,
                 vehicle.location.global_frame.lat,
@@ -486,9 +486,9 @@ def main():
                 vehicle.parameters['LOIT_TYPE'],
                 light_command,
                 horn_command,
-                isFuseShutdown,
-                wind_speed,
-                wind_direction
+                isFuseShutdown#,
+                #wind_speed,
+                #wind_direction
                 )
             mc.publish(mqtt_topic_root + 'apm/telem', payload=telem, qos=0, retain=False)
 
