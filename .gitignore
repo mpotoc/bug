@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.DS_Store
+
+# pyenv
+.python-version
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# Other
