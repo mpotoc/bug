@@ -468,7 +468,7 @@ def main():
             updateArm()
 
         if counter % (3 * intervalDivider) == 0: # report telemetry every 3s
-            telem = "{},{},{},{},{},{},{:.3f},{},{:.1f},{:.1f},{:.1f},{:.1f},{},{},{},{},{},{}".format(
+            telem = "{},{},{},{},{},{},{:.3f},{},{:.1f},{:.1f},{:.1f},{:.1f},{},{},{},{},{},{:.1f}".format(
                 vehicle.armed,
                 vehicle.mode.name,
                 vehicle.location.global_frame.lat,
