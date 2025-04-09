@@ -16,11 +16,11 @@ from pymavlink import mavutil
 from huawei_lte_api.Connection import Connection
 from huawei_lte_api.Client import Client
 
-fileVersion = "1.0.2"
+fileVersion = "1.0.4"
 
 # This is the address we setup in the Arduino Program
 i2c_address = 0x04
-i2c_data_count = 7
+i2c_data_count = 8
 i2c_payload_length = i2c_data_count * 4
 i2c_wind_sensor_address = 0x15
 
@@ -447,6 +447,7 @@ def main():
                 dataTemperature = get_float(data, 3)
                 dataStatus = get_float(data, 4)
                 isFuseShutdown = get_float(data, 6)
+                soc = get_float(data, 7)
 
                 #wind_data = get_data()
                 #wind_speed = get_float(wind_data, 2) * 100
@@ -467,7 +468,7 @@ def main():
             updateArm()
 
         if counter % (3 * intervalDivider) == 0: # report telemetry every 3s
-            telem = "{},{},{},{},{},{},{:.3f},{},{:.1f},{:.1f},{:.1f},{:.1f},{},{},{},{},{}".format(
+            telem = "{},{},{},{},{},{},{:.3f},{},{:.1f},{:.1f},{:.1f},{:.1f},{},{},{},{},{},{}".format(
                 vehicle.armed,
                 vehicle.mode.name,
                 vehicle.location.global_frame.lat,
@@ -486,7 +487,8 @@ def main():
                 vehicle.parameters['LOIT_TYPE'],
                 light_command,
                 horn_command,
-                isFuseShutdown#,
+                isFuseShutdown,
+                soc#,
                 #wind_speed,
                 #wind_direction
                 )
