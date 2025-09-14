@@ -71,7 +71,7 @@ cat >/opt/wb_gateway/vpn/waterBug.conf<<'EOF'
 client
 dev tun
 proto udp
-remote app.smartmark.team 1194
+remote app.smartmark.me 1194
 resolv-retry infinite
 nobind
 remote-cert-tls server

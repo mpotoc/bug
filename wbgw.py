@@ -63,7 +63,7 @@ if not sitl:
 
 # MQTT Stuff
 mqtt_client_id='wb_{}'.format(hwserial)
-mqtt_server='app.smartmark.team'
+mqtt_server='app.smartmark.me'
 mqtt_port=1883
 mqtt_transport='tcp'
 mqtt_user='device'
